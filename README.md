@@ -1,17 +1,22 @@
-# Projekt: Stranica za recepte
+# Web stranica za recepte
 
-## 🎯 Opis
-U ovom projektu učenici će napraviti web aplikaciju gdje korisnici mogu dodavati i pregledavati recepte. Cilj je razviti CMS za recepte uz osnovnu autentikaciju korisnika.
+## 🎯 Cilj projekta
+Kreirati stranicu na kojoj korisnici mogu dodavati, pregledavati i komentarisati recepte.
 
-## 🧠 Šta učenici trebaju uraditi
-1. Kreirati bazu `recepti` sa tabelama:
-   - `korisnici(id, korisnicko_ime, lozinka)`
-   - `recepti(id, naslov, opis, sastojci, priprema, korisnik_id)`
-2. Napraviti registraciju i prijavu korisnika.
-3. Omogućiti:
-   - Dodavanje novog recepta
-   - Prikaz svih recepata
-   - Prikaz recepata po korisniku
-4. Koristiti sesije za autentikaciju.
+## 🛠️ Tehnologije
+- HTML, CSS
+- PHP
+- MySQL
+
+## ✅ Funkcionalnosti koje učenici trebaju implementirati
+1. Dodavanje recepata (naziv, sastojci, priprema, slika)
+2. Komentari ispod svakog recepta
+3. Kategorizacija recepata (npr. doručak, ručak, večera, desert)
+4. Pretraga i filtriranje recepata
+5. Ocjenjivanje recepata (1–5 zvjezdica)
+
+## 💻 Uloge
+- **Korisnik**: pregled recepata, komentari, dodavanje novih recepata
+- **Admin**: odobravanje recepata i komentara
 
 ## 😉 Upustvo za github: https://github.com/zinaid/ArcosixGitTutorial/blob/main/tutorial.md

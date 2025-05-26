@@ -1,0 +1,11 @@
+/*  create DATABASE kuharica;
+use kuharica;
+
+CREATE table recepti(
+ID int(11) not null AUTO_INCREMENT primary key,
+    ime_umjetnika varchar(60),
+    ime_recepta varchar(200),
+    sastojci varchar(1000),
+    piprema varchar(2000),
+    slika varchar(500)
+);*/

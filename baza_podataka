@@ -1,5 +1,7 @@
-/*  create DATABASE kuharica;
+/* 
+CREATE DATABASE kuharica;
 use kuharica;
+
 
 CREATE table recepti(
 ID int(11) not null AUTO_INCREMENT primary key,
@@ -9,3 +11,10 @@ ID int(11) not null AUTO_INCREMENT primary key,
     piprema varchar(2000),
     slika varchar(500)
     );
+
+    CREATE TABLE korisnici(
+    ID int(11) not null AUTO_INCREMENT primary key,
+    ime_korisnika varchar(60),
+    email varchar(50),
+    pass varchar(1000)
+);

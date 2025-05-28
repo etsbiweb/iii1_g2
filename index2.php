@@ -7,7 +7,7 @@ if(isset($_POST['submit'])) {
     // For demonstration purposes, we'll just check against hardcoded values
     if($email =="admin@gmail.com" && $sifra == "admin123") {
         // Redirect to the admin dashboard or home page
-      header("Location: admin.php");
+      header("Location: xampp\htdocs\FoodMartV2\admin.php");
     exit();
     } else {
         // Invalid credentials, redirect back to login with an error message
@@ -41,7 +41,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #7d2ae8;
+  background: #e8f272;
   padding: 30px;
 }
 .container {
@@ -89,6 +89,7 @@ body {
   object-fit: cover;
   z-index: 10;
 }
+
 .container .cover .text {
   position: absolute;
   z-index: 10;
@@ -99,14 +100,16 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .container .cover .text::before {
   content: '';
   position: absolute;
   height: 100%;
   width: 100%;
   opacity: 0.5;
-  background: #7d2ae8;
+  background: #b2b3ad;
 }
+
 .cover .text .text-1,
 .cover .text .text-2 {
   z-index: 20;
@@ -115,6 +118,7 @@ body {
   color: #fff;
   text-align: center;
 }
+
 .cover .text .text-2 {
   font-size: 15px;
   font-weight: 500;
@@ -124,21 +128,25 @@ body {
   width: 100%;
   background: #fff;
 }
+
 .container .form-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .form-content .login-form,
 .form-content .signup-form {
   width: calc(100% / 2 - 25px);
 }
+
 .forms .form-content .title {
   position: relative;
   font-size: 24px;
   font-weight: 500;
   color: #333;
 }
+
 .forms .form-content .title:before {
   content: '';
   position: absolute;
@@ -146,14 +154,17 @@ body {
   bottom: 0;
   height: 3px;
   width: 25px;
-  background: #7d2ae8;
+  background: #b2b3ad;
 }
+
 .forms .signup-form .title:before {
   width: 20px;
 }
+
 .forms .form-content .input-boxes {
   margin-top: 30px;
 }
+
 .forms .form-content .input-box {
   display: flex;
   align-items: center;
@@ -162,6 +173,7 @@ body {
   margin: 10px 0;
   position: relative;
 }
+
 .form-content .input-box input {
   height: 100%;
   width: 100%;
@@ -173,75 +185,96 @@ body {
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
+
 .form-content .input-box input:focus,
 .form-content .input-box input:valid {
-  border-color: #7d2ae8;
+  border-color: #b2b3ad;
 }
+
 .form-content .input-box i {
   position: absolute;
-  color: #7d2ae8;
+  color: #b2b3ad;
   font-size: 17px;
 }
+
 .forms .form-content .text {
   font-size: 14px;
   font-weight: 500;
   color: #333;
 }
+
 .forms .form-content .text a {
   text-decoration: none;
 }
+
 .forms .form-content .text a:hover {
   text-decoration: underline;
 }
+
 .forms .form-content .button {
   color: #fff;
   margin-top: 40px;
 }
+
 .forms .form-content .button input {
   color: #fff;
-  background: #7d2ae8;
+  background: #b2b3ad;
   border-radius: 6px;
   padding: 0;
   cursor: pointer;
   transition: all 0.4s ease;
 }
+
 .forms .form-content .button input:hover {
-  background: #5b13b9;
+  background: #b2b3ad;
 }
+
 .forms .form-content label {
-  color: #5b13b9;
+  color: #b2b3ad;
   cursor: pointer;
 }
+
 .forms .form-content label:hover {
   text-decoration: underline;
 }
+
 .forms .form-content .login-text,
 .forms .form-content .sign-up-text {
   text-align: center;
   margin-top: 25px;
 }
+
 .container #flip {
   display: none;
 }
+
 @media (max-width: 730px) {
   .container .cover {
     display: none;
   }
+
   .form-content .login-form,
   .form-content .signup-form {
     width: 100%;
   }
+
   .form-content .signup-form {
     display: none;
   }
+
   .container #flip:checked ~ .forms .signup-form {
     display: block;
   }
+
   .container #flip:checked ~ .forms .login-form {
     display: none;
   }
 }
     </style>
+
+
+
+
 <body>
   <div class="container">
     <input type="checkbox" id="flip">
@@ -249,12 +282,18 @@ body {
       <div class="front">
         <img src="images/pozadina_login.jpg" alt="">
         <div class="text">
+
+          <!-- aaaaaaaaaaaaaaaa -->
           <span class="text-1">Svaki novi kuhar/ica <br> znaci nova jela </span>
           <span class="text-2">Admin LOGIN</span>
+          <!-- aaaaaaaaaaaaaaaaaaaaa -->
+
         </div>
       </div>
       <div class="back">
+
         <!--<img class="backImg" src="images/backImg.jpg" alt="">-->
+        
         <div class="text">
           <span class="text-1">Complete miles of journey <br> with one step</span>
           <span class="text-2">Let's get started</span>
@@ -311,3 +350,29 @@ body {
   </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

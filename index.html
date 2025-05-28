@@ -355,57 +355,50 @@
 
    
 
-    <section class="py-5">
-      <div class="container-fluid">
-
-        <div class="bg-secondary py-5 my-5 rounded-5" style="background: url('images/bg-leaves-img-pattern.png') no-repeat;">
-          <div class="container my-5">
-            <div class="row">
-              <div class="col-md-6 p-5">
-                <div class="section-header">
-                  <h2 class="section-title display-4">Unesi svoj <span class="text-primary">RECEPT</span></h2>
-                </div>
-                <p>Imaš neki recept koji bi hjeo/la podijeliti sa nama?</p>
-              </div>
-              <div class="col-md-6 p-5">
-                <form>
-                  <div class="mb-3">
-                    <label for="name" class="form-label">Ime umjetnika</label>
-                    <input type="text"
-                      class="form-control form-control-lg" name="imeUmjetnika" id="imeUmjetnika" placeholder="Vaše ime:">
-                  </div>
-                  <div class="mb-3">
-                    <label for="name" class="form-label">Ime Recepta</label>
-                    <input type="text"
-                      class="form-control form-control-lg" name="imeRecepta" id="imeRecepta" placeholder="ime recepta">
-                  </div>
-                  <div class="mb-3">
-                    <label for="" class="form-label">Sastojci</label>
-                    <input type="text" class="form-control form-control-lg" name="sastojci" id="sastojci" placeholder="Sastojci">
-                  </div>
-                  <div class="mb-3">
-                    <label for="" class="form-label">Piprema</label>
-                    <input type="text" class="form-control form-control-lg" name="piprema" id="piprema" placeholder="Piprema recepta">
-                  </div>
-                  <div class="mb-3">
-                    <label for="" class="form-label">Slika</label>
-                    <input type="file" class="form-control form-control-lg" name="slika" id="slika" placeholder="Piprema recepta">
-                  </div>
-                  
-                  <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-dark btn-lg">Unesi</button>
-                  </div>
-                </form>
-                
-              </div>
-              
+  <section class="py-5">
+  <div class="container-fluid">
+    <div class="bg-secondary py-5 my-5 rounded-5" style="background: url('images/bg-leaves-img-pattern.png') no-repeat;">
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-md-6 p-5">
+            <div class="section-header">
+              <h2 class="section-title display-4">Unesi svoj <span class="text-primary">RECEPT</span></h2>
             </div>
-            
+            <p>Imaš neki recept koji bi htio/la podijeliti sa nama?</p>
+          </div>
+          <div class="col-md-6 p-5">
+            <form action="add.php" method="POST" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="imeUmjetnika" class="form-label">Ime umjetnika</label>
+                <input type="text" class="form-control form-control-lg" name="ime_umjetnika" id="imeUmjetnika" placeholder="Vaše ime:">
+              </div>
+              <div class="mb-3">
+                <label for="imeRecepta" class="form-label">Ime Recepta</label>
+                <input type="text" class="form-control form-control-lg" name="ime_recepta" id="imeRecepta" placeholder="Ime recepta">
+              </div>
+              <div class="mb-3">
+                <label for="sastojci" class="form-label">Sastojci</label>
+                <input type="text" class="form-control form-control-lg" name="sastojci" id="sastojci" placeholder="Sastojci">
+              </div>
+              <div class="mb-3">
+               <label for="piprema" class="form-label">Priprema</label>
+<input type="text" class="form-control form-control-lg" name="piprema" id="piprema" placeholder="Priprema recepta">
+</div>
+              <div class="mb-3">
+                <label for="slika" class="form-label">Slika</label>
+                <input type="file" class="form-control form-control-lg" name="slika" id="slika">
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-dark btn-lg">Unesi</button>
+              </div>
+            </form>
           </div>
         </div>
-        
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
     
 

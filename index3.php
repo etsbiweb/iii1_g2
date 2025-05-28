@@ -119,8 +119,8 @@ small {
   </div>
 
   <header>
-    <h1 class="naslov">Okusite domaće – probajte naše recepte!</h1>
-    <h3 class="naslov">Svaki zalogaj priča našu priču.</h3>
+    <h1 class="naslov">Okusite domaće – probajte razne recepte!</h1>
+    <h3 class="naslov">Svaki zalogaj priča nečiju priču.</h3>
   </header>
 
   <main>

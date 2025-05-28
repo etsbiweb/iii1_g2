@@ -1,9 +1,13 @@
 <?php
+include_once 'dbh.php';
+mysqli_query($conn, "INSERT INTO posjete () VALUES ()");
+?>
+<?php
 session_start();
 include("dbh.php");
 
 // Admin podaci - dummy podaci za login admina
-$adminEmail = "admin@admin.com";
+$adminEmail = "admin@gmail.com";
 $adminSifra = "admin123";
 
 // Obrada LOGIN forme
@@ -29,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
             if (password_verify($sifra, $korisnik["sifra"])) {
                 $_SESSION["korisnik_id"] = $korisnik["ID"];
                 $_SESSION["korisnik_ime"] = $korisnik["ime_korisnika"];
-                header("Location: korisnik/index.php"); // promijeni ako želiš drugi redirect
+                header("Location: index3.php"); // promijeni ako želiš drugi redirect
                 exit();
             } else {
                 $error = "Pogrešan email ili šifra.";

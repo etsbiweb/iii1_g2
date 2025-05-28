@@ -1,3 +1,32 @@
+<?php
+include_once '../dbh.php';
+
+// Broj korisnika
+$brojKorisnika = 0;
+$sql = "SELECT COUNT(*) AS ukupno FROM korisnici";
+$result = mysqli_query($conn, $sql);
+if ($result && $row = mysqli_fetch_assoc($result)) {
+    $brojKorisnika = $row['ukupno'];
+}
+
+// Broj recepata
+$brojRecepata = 0;
+$sql = "SELECT COUNT(*) AS ukupno FROM recepti";
+$result = mysqli_query($conn, $sql);
+if ($result && $row = mysqli_fetch_assoc($result)) {
+    $brojRecepata = $row['ukupno'];
+}
+
+// Broj posjeta
+$brojPosjeta = 0;
+$sql = "SELECT COUNT(*) AS ukupno FROM posjete";
+$result = mysqli_query($conn, $sql);
+if ($result && $row = mysqli_fetch_assoc($result)) {
+    $brojPosjeta = $row['ukupno'];
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +44,8 @@
       <h2 class="text-2xl font-bold text-purple-700 mb-10">Admin Panel</h2>
       <nav>
         <ul class="space-y-4">
-          <li><a href="#" class="text-gray-700 hover:text-purple-700">Dashboard</a></li>
-          <li><a href="#" class="text-gray-700 hover:text-purple-700">Korisnici</a></li>
-          <li><a href="#" class="text-gray-700 hover:text-purple-700">Narudžbe</a></li>
-          <li><a href="#" class="text-gray-700 hover:text-purple-700">Postavke</a></li>
+          <li><a href="../index2.php" class="text-gray-700 hover:text-purple-700">Nazad na prijavu/registraciju</a></li>
+          <li><a href="postavke.php" class="text-gray-700 hover:text-purple-700">Postavke</a></li>
         </ul>
       </nav>
     </aside>
@@ -28,20 +55,23 @@
       <h1 class="text-3xl font-semibold mb-6">Pregled</h1>
 
       <!-- Stats Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white p-6 rounded-xl shadow text-center">
-          <p class="text-gray-500">Ukupni korisnici</p>
-          <h2 class="text-3xl font-bold text-purple-700">1,245</h2>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow text-center">
-          <p class="text-gray-500">Ukupni recepti</p>
-          <h2 class="text-3xl font-bold text-purple-700">580</h2>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow text-center">
-          <p class="text-gray-500">Broj posjeta stranice</p>
-          <h2 class="text-3xl font-bold text-purple-700">€12,340</h2>
-        </div>
-      </div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div class="bg-white p-6 rounded-xl shadow text-center">
+    <p class="text-gray-500">Ukupni korisnici</p>
+    <h2 class="text-3xl font-bold text-purple-700"><?php echo $brojKorisnika; ?></h2>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow text-center">
+    <p class="text-gray-500">Ukupni recepti</p>
+    <h2 class="text-3xl font-bold text-purple-700"><?php echo $brojRecepata; ?></h2>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow text-center">
+    <p class="text-gray-500">Broj posjeta stranice</p>
+    <h2 class="text-3xl font-bold text-purple-700"><?php echo $brojPosjeta; ?></h2>
+  </div>
+</div>
+
+
 
       <!-- Charts -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -66,10 +96,10 @@
     new Chart(barCtx, {
       type: 'bar',
       data: {
-        labels: ['Januar', 'Februar', 'Mart', 'April', 'Maj'],
+        labels: ['April', 'Maj', 'Juni', 'Juli', 'August'],
         datasets: [{
           label: 'Pregledi',
-          data: [65, 59, 80, 81, 56],
+          data: [0, 5, 0, 0, 0],
           backgroundColor: '#7d2ae8'
         }]
       }
@@ -80,11 +110,11 @@
     new Chart(pieCtx, {
       type: 'pie',
       data: {
-        labels: ['Administratori', 'Kupci', 'Gosti'],
+        labels: ['Administratori', 'Ostalo', ],
         datasets: [{
-          label: 'Korisnici',
-          data: [10, 70, 20],
-          backgroundColor: ['#7d2ae8', '#5b13b9', '#a78bfa']
+          label: 'Ostalo',
+          data: [10, 70],
+          backgroundColor: ['#7d2ae8', '#5b13b9']
         }]
       }
     });

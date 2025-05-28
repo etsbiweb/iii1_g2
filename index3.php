@@ -129,6 +129,8 @@ small {
 <?php
 
 
+
+
                         $qSelect = $konekcija->prepare('SELECT * FROM `recepti` ;');
                         $qSelect->execute();
                         $automobili = $qSelect->fetchAll(PDO::FETCH_ASSOC);

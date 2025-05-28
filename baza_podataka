@@ -8,4 +8,4 @@ ID int(11) not null AUTO_INCREMENT primary key,
     sastojci varchar(1000),
     piprema varchar(2000),
     slika varchar(500)
-);*/
+    );

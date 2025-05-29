@@ -127,6 +127,10 @@ small {
     <p class="ispis">ISPIS</p>
     <!--  -->
 <?php
+
+
+
+
                         $qSelect = $konekcija->prepare('SELECT * FROM `recepti` ;');
                         $qSelect->execute();
                         $automobili = $qSelect->fetchAll(PDO::FETCH_ASSOC);
@@ -149,7 +153,10 @@ small {
                         }
                         ?>
     <!--  -->
+
   </main>
+
+
 <table>
         <thead>
             <tr>
@@ -176,10 +183,15 @@ small {
     (function() {
   // Variables
   var $curve = document.getElementById("curve");
+
   var last_known_scroll_position = 0;
+
   var defaultCurveValue = 350;
+
   var curveRate = 3;
+
   var ticking = false;
+
   var curveValue;
 
   // Handle the functionality
@@ -196,17 +208,25 @@ small {
   // Scroll Listener
   // https://developer.mozilla.org/en-US/docs/Web/Events/scroll
   window.addEventListener("scroll", function(e) {
+
     last_known_scroll_position = window.scrollY;
 
     if (!ticking) {
       window.requestAnimationFrame(function() {
+
         scrollEvent(last_known_scroll_position);
+
         ticking = false;
       });
     }
 
     ticking = true;
   });
+
 })();
+
   </script>
+
+
+
 </body>

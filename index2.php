@@ -1,13 +1,10 @@
-<?php
-<<<<<<< HEAD
-include_once 'dbh.php';
-mysqli_query($conn, "INSERT INTO posjete () VALUES ()");
-?>
+
 <?php
 session_start();
 include("dbh.php");
 
 // Admin podaci - dummy podaci za login admina
+$adminEmail = "admin@admin.com";
 $adminEmail = "admin@gmail.com";
 $adminSifra = "admin123";
 
@@ -34,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
             if (password_verify($sifra, $korisnik["sifra"])) {
                 $_SESSION["korisnik_id"] = $korisnik["ID"];
                 $_SESSION["korisnik_ime"] = $korisnik["ime_korisnika"];
+                header("Location: korisnik/index.php"); // promijeni ako želiš drugi redirect
                 header("Location: index3.php"); // promijeni ako želiš drugi redirect
                 exit();
             } else {
@@ -44,62 +42,84 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
         }
 
         header("Location: index2.php?error=" . urlencode($error));
-=======
-if(isset($_POST['submit'])) {
-    $email = $_POST['email'];
-    $sifra = $_POST['sifra'];
-
-    // Here you would typically check the credentials against a database
-    // For demonstration purposes, we'll just check against hardcoded values
-    if($email =="admin@gmail.com" && $sifra == "admin123") {
-        // Redirect to the admin dashboard or home page
-      header("Location: xampp\htdocs\FoodMartV2\admin.php");
-    exit();
-    } else {
-        // Invalid credentials, redirect back to login with an error message
-        header("Location: index2.php?error=Invalid credentials");
->>>>>>> 80fedfe049a43a4a79c551b26f48c5c3eb04c043
         exit();
     }
-  }
+}
+
+
+// Obrada REGISTRACIJA forme
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["signup"])) {
+    $ime = trim($_POST["ime"]);
+    $email = trim($_POST["email"]);
+    $sifra = trim($_POST["sifra"]); // ispravljeno
+
+    // Provjera da li email postoji
+    $provjera = $conn->prepare("SELECT ID FROM korisnici WHERE email = ?");
+    $provjera->bind_param("s", $email);
+    $provjera->execute();
+    $provjera->store_result();
+
+    if ($provjera->num_rows > 0) {
+        $error = "Email je već registrovan.";
+        header("Location: index2.php?error=" . urlencode($error));
+        exit();
+    }
+
+    // Spremi korisnika s hashiranom šifrom
+    $hashirana = password_hash($sifra, PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO korisnici (ime_korisnika, email, sifra) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $ime, $email, $hashirana);
+
+    if ($stmt->execute()) {
+        header("Location: index2.php?success=" . urlencode("Registracija uspješna! Možete se prijaviti."));
+        exit();
+    } else {
+        $error = "Greška prilikom registracije.";
+        header("Location: index2.php?error=" . urlencode($error));
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
-<!-- Coding by CodingNepal | www.codingnepalweb.com-->
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title> Login and Registration Form in HTML & CSS | CodingLab </title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-   <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+<html lang="hr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | Admin Panel</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+ @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 body {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e8f272;
+  background: #f5b301; /* Topla žuta pozadina */
   padding: 30px;
 }
+
 .container {
   position: relative;
   max-width: 850px;
   width: 100%;
-  background: #fff;
+  background: #fffef5; /* svijetložuta pozadina */
   padding: 40px 30px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   perspective: 2700px;
 }
+
 .container .cover {
   position: absolute;
   top: 0;
@@ -112,12 +132,15 @@ body {
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
+
 .container #flip:checked ~ .cover {
   transform: rotateY(-180deg);
 }
+
 .container #flip:checked ~ .forms .login-form {
   pointer-events: none;
 }
+
 .container .cover .front,
 .container .cover .back {
   position: absolute;
@@ -126,9 +149,11 @@ body {
   height: 100%;
   width: 100%;
 }
+
 .cover .back {
   transform: rotateY(180deg);
 }
+
 .container .cover img {
   position: absolute;
   height: 100%;
@@ -140,22 +165,36 @@ body {
 .container .cover .text {
   position: absolute;
   z-index: 10;
-  height: 100%;
+  height: 80%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start; /* poravnanje lijevo */
+  justify-content: flex-start; /* gore */
+  padding: 10px; /* razmak od ruba */
+  margin-top: 15%;
 }
 
+.cover .text .text-1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+  text-align: left; /* tekst poravnat lijevo */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  z-index: 20;
+}
+
+
+
 .container .cover .text::before {
-  content: '';
+  content: "";
   position: absolute;
   height: 100%;
   width: 100%;
   opacity: 0.5;
-  background: #b2b3ad;
+
 }
+
 
 .cover .text .text-1,
 .cover .text .text-2 {
@@ -170,10 +209,11 @@ body {
   font-size: 15px;
   font-weight: 500;
 }
+
 .container .forms {
   height: 100%;
   width: 100%;
-  background: #fff;
+  background: #fffef5;
 }
 
 .container .form-content {
@@ -195,13 +235,13 @@ body {
 }
 
 .forms .form-content .title:before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   height: 3px;
   width: 25px;
-  background: #b2b3ad;
+  background: #f5b301; /* žuta crta ispod naslova */
 }
 
 .forms .signup-form .title:before {
@@ -235,14 +275,25 @@ body {
 
 .form-content .input-box input:focus,
 .form-content .input-box input:valid {
-  border-color: #b2b3ad;
+  border-color: #f5b301;
 }
 
 .form-content .input-box i {
   position: absolute;
-  color: #b2b3ad;
+  color: #f5b301;
   font-size: 17px;
 }
+
+.mala-slika {
+  position: absolute;
+  top: 155px;
+  right:83px;
+  width: 5px;
+  height: auto;
+  transform: scale(0.6); /* smanji veličinu na 60% */
+  z-index: 25;
+}
+
 
 .forms .form-content .text {
   font-size: 14px;
@@ -252,6 +303,7 @@ body {
 
 .forms .form-content .text a {
   text-decoration: none;
+  color: #c98e00;
 }
 
 .forms .form-content .text a:hover {
@@ -265,19 +317,23 @@ body {
 
 .forms .form-content .button input {
   color: #fff;
-  background: #b2b3ad;
+  background: #f5b301;
   border-radius: 6px;
   padding: 0;
   cursor: pointer;
   transition: all 0.4s ease;
+  height: 45px;
+  width: 100%;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 .forms .form-content .button input:hover {
-  background: #b2b3ad;
+  background: #c98e00;
 }
 
 .forms .form-content label {
-  color: #b2b3ad;
+  color: #c98e00;
   cursor: pointer;
 }
 
@@ -295,131 +351,118 @@ body {
   display: none;
 }
 
+/* Responsivnost */
 @media (max-width: 730px) {
   .container .cover {
     display: none;
   }
-
   .form-content .login-form,
   .form-content .signup-form {
     width: 100%;
   }
-
   .form-content .signup-form {
     display: none;
   }
-
   .container #flip:checked ~ .forms .signup-form {
     display: block;
   }
-
   .container #flip:checked ~ .forms .login-form {
     display: none;
   }
 }
-    </style>
 
-
-
-
+  </style>
+</head>
 <body>
   <div class="container">
-    <input type="checkbox" id="flip">
+    <input type="checkbox" id="flip" />
     <div class="cover">
       <div class="front">
-        <img src="images/pozadina_login.jpg" alt="">
+        <img src="images/hranalogin.jpg" alt="" />
         <div class="text">
-
-          <!-- aaaaaaaaaaaaaaaa -->
-          <span class="text-1">Svaki novi kuhar/ica <br> znaci nova jela </span>
-          <span class="text-2">Admin LOGIN</span>
-          <!-- aaaaaaaaaaaaaaaaaaaaa -->
-
+           <img src="images/ChatGPT Image May 22, 2025, 10_55_37 AM.png" alt="Ikona" class="mala-slika" />
+          <span class="text-1">Popunite polja</span>
+          <span class="text-1">Počnite s kuhanjem</span>
         </div>
       </div>
       <div class="back">
-
-        <!--<img class="backImg" src="images/backImg.jpg" alt="">-->
-        
+        <img src="images/hranalogin.jpg" alt="" />
         <div class="text">
-          <span class="text-1">Complete miles of journey <br> with one step</span>
-          <span class="text-2">Let's get started</span>
+           <img src="images/ChatGPT Image May 22, 2025, 10_55_37 AM.png" alt="Ikona" class="mala-slika" />
+          <span class="text-1">Registrujte se</span>
+          <span class="text-1">Budite dio priče</span>
+
         </div>
       </div>
     </div>
     <div class="forms">
-        <div class="form-content">
-          <div class="login-form">
-            <div class="title">Login</div>
-          <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-envelope"></i>
-                <input type="text" name="email" placeholder="Enter your email" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" name="sifra" placeholder="Enter your password" required>
-              </div>
-              <div class="text"><a href="#">Forgot password?</a></div>
-              <div class="button input-box">
-                <input type="submit" value="Sumbit">
-              </div>
-              <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Prijava</div>
+
+          <?php if (isset($_GET["error"])): ?>
+            <div style="color: red; margin: 10px 0;">
+              <?php echo htmlspecialchars($_GET["error"]); ?>
             </div>
-        </form>
-      </div>
+          <?php endif; ?>
+          <?php if (isset($_GET["success"])): ?>
+            <div style="color: green; margin: 10px 0;">
+              <?php echo htmlspecialchars($_GET["success"]); ?>
+            </div>
+          <?php endif; ?>
+
+          <form method="POST" action="">
+            <div class="input-box">
+              <i class="fas fa-envelope"></i>
+              <input type="email" name="email" placeholder="Unesite email" required />
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                name="sifra"
+                placeholder="Unesite šifru"
+                required
+              />
+            </div>
+            <div class="button">
+              <input type="submit" name="login" value="Prijavi se" />
+            </div>
+            <div class="text sign-up-text">
+              Nemaš nalog? <label for="flip">Registruj se</label>
+            </div>
+          </form>
+        </div>
         <div class="signup-form">
-          <div class="title">Signup</div>
-        <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your name" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
-              </div>
-              <div class="button input-box">
-                <input type="submit" value="Sumbit">
-              </div>
-              <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+          <div class="title">Registracija</div>
+          <form method="POST" action="">
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" name="ime" placeholder="Unesite ime" required />
             </div>
-      </form>
-    </div>
-    </div>
+            <div class="input-box">
+              <i class="fas fa-envelope"></i>
+              <input type="email" name="email" placeholder="Unesite email" required />
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                name="sifra"
+                placeholder="Unesite šifru"
+                required
+              />
+            </div>
+            <div class="button">
+              <input type="submit" name="signup" value="Registruj se" />
+            </div>
+            <div class="text sign-up-text">
+              Već imaš nalog? <label for="flip">Prijavi se</label>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

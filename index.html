@@ -94,23 +94,22 @@
         </div>
       </div>
     </div>
-    
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch" aria-labelledby="Search">
-      <div class="offcanvas-header justify-content-center align-items-center">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="order-md-last">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Search</span>
-          </h4>
-          <form role="search" action="index.html" method="get" class="d-flex mt-3 gap-0">
-            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="What are you looking for?" aria-label="What are you looking for?">
-            <button class="btn btn-dark rounded-end rounded-0" type="submit" name="search">Search</button>
-          </form>
-        </div>
-      </div>
+<div class="offcanvas offcanvas-end d-flex flex-column" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch" aria-labelledby="Search" style="height: 100vh;">
+  <div class="offcanvas-header justify-content-center align-items-center">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-grow-1 align-items-center justify-content-center">
+    <div class="w-100" style="max-width: 400px;">
+      <h4 class="text-primary text-center mb-3">Search</h4>
+      <form role="search" action="index3.php" method="get" class="d-flex gap-0">
+  <input class="form-control rounded-start rounded-0 bg-light" 
+         type="search" name="search" placeholder="What are you looking for?" 
+         aria-label="What are you looking for?">
+  <button class="btn btn-dark rounded-end rounded-0" type="submit">Search</button>
+</form>
     </div>
+  </div>
+</div>
 
     <header>
       <div class="container-fluid">
@@ -152,16 +151,17 @@
             </div>
 
             <ul class="d-flex justify-content-end list-unstyled m-0">
-              <li>
-                <a href="#" class="rounded-circle bg-light p-2 mx-1">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#user"></use></svg>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="rounded-circle bg-light p-2 mx-1">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                </a>
-              </li>
+ <li>
+  <a href="index2.php" 
+   style="text-decoration: none;" 
+   class="flex flex-col items-center justify-center rounded-full bg-gray-200 text-purple-700 p-3 w-12 h-12 mx-1 select-none shadow-sm hover:shadow-md">
+
+    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+      <use xlink:href="#user"></use>
+    </svg>
+    <span class="text-xs leading-tight no-underline decoration-none">Prijava</span>
+  </a>
+</li>
               <li class="d-lg-none">
                 <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                   <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#cart"></use></svg>
@@ -277,16 +277,10 @@
               <div class="banner-ad bg-success-subtle block-2" style="background:url('images/ad-image-1.png') no-repeat;background-position: right bottom">
                 <div class="row banner-content p-5">
 
-                  <div class="content-wrapper col-md-7">
-<<<<<<< HEAD
-                    <div class="categories ">20% off</div>
-                    <h3 class="banner-title">Fruits & Vegetables</h3>
-                    <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24"><use xlink:href="#arrow-right"></use></svg></a>
-=======
-                    <div class="categories sale mb-3 pb-3"></div>
+                  <div class="content-wrapper col-md-7">                   
+                    <div class="categories">Klkini ispod</div>
                     <h3 class="banner-title">Ukusi koje vrijedi otkriti.</h3>
-                    <a href="#" class="d-flex align-items-center nav-link" onclick="window.location.href='index3.php';">Odkrij nas! <svg width="24" height="24"><use xlink:href="#arrow-right"></use></svg></a>
->>>>>>> 80fedfe049a43a4a79c551b26f48c5c3eb04c043
+                    <a href="#" class="d-flex align-items-center nav-link" onclick="window.location.href='index3.php';">Otkrij nas! <svg width="24" height="24"><use xlink:href="#arrow-right"></use></svg></a>
                   </div>
 
                 </div>
@@ -414,35 +408,9 @@
   </div>
 </section>
 
-<!--  
-    <section>
-
-    <?php
-                        $qSelect = $konekcija->prepare('SELECT * FROM `recepti` ;');
-                        $qSelect->execute();
-                        $automobili = $qSelect->fetchAll(PDO::FETCH_ASSOC);
-                        if(!empty($automobili)){
-                            foreach($automobili as $auto){
-                            ?>         
-                    <tr>
-                        <td><?php echo htmlspecialchars($auto['id']);?></td>
-                        <td><?php echo htmlspecialchars($auto['ime_umjetnika']);?></td>
-                        <td><?php echo htmlspecialchars($auto['ime_recepta']);?></td>
-                        <td><?php echo htmlspecialchars($auto['sastojci']);?></td>
-                        <td><?php echo htmlspecialchars($auto['piprema']);?></td>
-                        <td><?php echo htmlspecialchars($auto['slika']);?></td>
-                       
-                        <td><a href="uredi.php?id=<?php echo htmlspecialchars($auto['id']);?>">Uredi</a></td>
-                        <td><a href="obrisi.php?id=<?php echo htmlspecialchars($auto['id']);?>">Obrisi</a></td>
-                        
-                        <?php
-                            }
-                        }
-                        ?>
-    </section>-->
 
     
-    <section id="latest-blog" class="py-5">
+    <section id="latest-blog" class="py-5 bg-light">
       <div class="container-fluid">
         <div class="row">
           <div class="section-header d-flex align-items-center justify-content-between my-5">
@@ -454,7 +422,7 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <article class="post-item card border-0 shadow-sm p-3">
+            <article class="post-item card border-0 shadow-sm p-3 h-100 d-flex flex-column">
               <div class="image-holder zoom-effect">
                 <a href="#">
                   <img src="iii1_g2/images/pita-od-jabuke-recept.jpg" alt="post" class="card-img-top">
@@ -475,7 +443,7 @@
             </article>
           </div>
           <div class="col-md-4">
-            <article class="post-item card border-0 shadow-sm p-3">
+            <article class="post-item card border-0 shadow-sm p-3 h-100 d-flex flex-column">
               <div class="image-holder zoom-effect">
                 <a href="#">
                   <img src="iii1_g2/images/1600x1200-f2b21938-64bc-11eb-9498-0242ac130010.png" alt="post" class="card-img-top">
@@ -496,7 +464,7 @@
             </article>
           </div>
           <div class="col-md-4">
-            <article class="post-item card border-0 shadow-sm p-3">
+            <article class="post-item card border-0 shadow-sm p-3 h-100 d-flex flex-column">
               <div class="image-holder zoom-effect">
                 <a href="#">
                   <img src="iii1_g2/images/supa-sa-gljivama-na-azijski1.png" alt="post" class="card-img-top">
@@ -520,6 +488,22 @@
       </div>
     </section>
 
+<section class="py-3 bg-light mt-n1">
+  <div class="container">
+    <div class="p-5 text-center bg-white rounded-4 shadow-sm">
+      <h3 class="mb-4">Zanima te još recepata?</h3>
+      <div style="display: inline-flex; align-items: center; gap: 10px; justify-content: center;">
+        <img src="images/strelica.png" alt="strelica lijevo" style="height: 45px; width: auto;">
+        <a href="index2.php" class="btn btn-primary btn-lg px-4">
+          Pogledaj i ostalo
+        </a>
+        <img src="images/strelica.png" alt="strelica desno" style="height: 45px; width: auto; transform: scaleX(-1);">
+      </div>
+    </div>
+  </div>
+</section>
+
+
     <section class="py-5 my-5">
       <div class="container-fluid">
 
@@ -531,7 +515,7 @@
               </div>
               <div class="col-md-8">
                 <h2 class="my-5">Tvoj novi kuhar u džepu – preuzmi i kuhaj!</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.</p>
+                <p>Također možete nas pronaći i kao aplikaciju za vaš uređaj te je besplatno preuzeti i jednostavnije te brže koristiti.Odaberite odgovarajući app marketplace i u par klikova pojednostavite sebi pristup vašoj omiljenoj aplikaciji u kuhinji.</p>
                 <div class="d-flex gap-2 flex-wrap">
                   <img src="images/app-store.jpg" alt="app-store">
                   <img src="images/google-play.jpg" alt="google-play">
@@ -546,7 +530,7 @@
 
     <section class="py-5">
       <div class="container-fluid">
-        <h2 class="my-5">People are also looking for</h2>
+        <h2 class="my-5">Korisnici također pretražuju i ...</h2>
         <a href="#" class="btn btn-warning me-2 mb-2">Vruća trhana</a>
         <a href="#" class="btn btn-warning me-2 mb-2">Kuruze i mlika</a>
         <a href="#" class="btn btn-warning me-2 mb-2">Potkriža</a>

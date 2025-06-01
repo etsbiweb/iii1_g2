@@ -17,12 +17,24 @@ if ($result && $row = mysqli_fetch_assoc($result)) {
     $brojRecepata = $row['ukupno'];
 }
 
-// Broj posjeta
+// Broj posjeta (koristit ćemo kao broj korisnika u Pie Chartu)
 $brojPosjeta = 0;
 $sql = "SELECT COUNT(*) AS ukupno FROM posjete";
 $result = mysqli_query($conn, $sql);
 if ($result && $row = mysqli_fetch_assoc($result)) {
     $brojPosjeta = $row['ukupno'];
+}
+
+$brojAdmina = 1; // Fiksno
+
+// Top 3 pretrage
+$topPretrage = [];
+$sql = "SELECT pojam, COUNT(*) AS broj FROM pretrage GROUP BY pojam ORDER BY broj DESC LIMIT 3";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $topPretrage[] = $row;
+    }
 }
 ?>
 
@@ -52,7 +64,7 @@ if ($result && $row = mysqli_fetch_assoc($result)) {
 
     <!-- Main Content -->
     <main class="flex-1 p-8">
-      <h1 class="text-3xl font-semibold mb-6">Pregled</h1>
+      <h1 class="text-3xl font-semibold mb-6">Pregled statistika</h1>
 
       <!-- Stats Cards -->
 <!-- Stats Cards -->
@@ -83,7 +95,7 @@ if ($result && $row = mysqli_fetch_assoc($result)) {
 
         <!-- Pie Chart -->
         <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="text-xl font-semibold mb-4">Raspodjela korisnika</h3>
+          <h3 class="text-xl font-semibold mb-4">Otvaranje stranice</h3>
           <canvas id="pieChart"></canvas>
         </div>
       </div>
@@ -92,32 +104,48 @@ if ($result && $row = mysqli_fetch_assoc($result)) {
 
   <script>
     // Bar Chart
-    const barCtx = document.getElementById('barChart').getContext('2d');
-    new Chart(barCtx, {
-      type: 'bar',
-      data: {
-        labels: ['April', 'Maj', 'Juni', 'Juli', 'August'],
-        datasets: [{
-          label: 'Pregledi',
-          data: [0, 5, 0, 0, 0],
-          backgroundColor: '#7d2ae8'
-        }]
-      }
-    });
+    const brojPosjeta = <?php echo $brojPosjeta; ?>;
 
-    // Pie Chart
-    const pieCtx = document.getElementById('pieChart').getContext('2d');
-    new Chart(pieCtx, {
-      type: 'pie',
-      data: {
-        labels: ['Administratori', 'Ostalo', ],
-        datasets: [{
-          label: 'Ostalo',
-          data: [10, 70],
-          backgroundColor: ['#7d2ae8', '#5b13b9']
-        }]
+  // Bar Chart
+  const barCtx = document.getElementById('barChart').getContext('2d');
+  new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: ['April', 'Maj', 'Juni', 'Juli', 'August'],
+      datasets: [{
+        label: 'Pregledi',
+        data: [0, brojPosjeta, 0, 0, 0], // koristi broj posjeta iz PHP-a za Maj
+        backgroundColor: '#7d2ae8'
+      }]
+    }
+  });
+   const brojAdmina = <?php echo $brojAdmina; ?>;
+  const brojKorisnika = <?php echo $brojPosjeta; ?>;
+
+  const pieCtx = document.getElementById('pieChart').getContext('2d');
+  new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Administrator', 'Korisnici (pregledi stranice)'],
+      datasets: [{
+        label: 'Raspodjela korisnika',
+        data: [brojAdmina, brojKorisnika],
+        backgroundColor: ['#7d2ae8', '#5b13b9']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        },
+        tooltip: {
+          enabled: true
+        }
       }
-    });
+    }
+  });
+  
   </script>
 
 </body>

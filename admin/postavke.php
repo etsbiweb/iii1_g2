@@ -4,7 +4,7 @@ include '../dbh.php';
 
 // Provjera je li korisnik admin
 if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
-    header("Location: postavke.php");
+    header("Location: admin.php"); // vraća na admin panel ako nije admin
     exit();
 }
 
@@ -41,6 +41,8 @@ $result_korisnici = $conn->query($sql_korisnici);
 // Dohvat recepata
 $sql_recepti = "SELECT ID, ime_umjetnika, ime_recepta FROM recepti";
 $result_recepti = $conn->query($sql_recepti);
+
+
 ?>
 
 <!DOCTYPE html>
